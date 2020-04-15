@@ -1,6 +1,6 @@
 import argparse
 
-import utils as u
+import utils.stream as s
 
 
 def get_arguments():
@@ -18,7 +18,8 @@ def get_arguments():
     parser.add_argument(
         'path', help='Path to the folder containing the data', type=str)
 
-    parser.add_argument('files', help='List of files to be loaded', nargs='+')
+    parser.add_argument(
+        'files', help='List of files to be loaded', nargs='+')
 
     parser.add_argument(
         '-n_samples', help='Maximum number of samples to load', type=int, default=960)
@@ -36,13 +37,13 @@ if __name__ == "__main__":
     n_samples = args.n_samples
 
     # Loading the pre-defined input files
-    data = [u.load_txt(f'{path}/{f}') for f in files]
+    data = [s.load_txt(f'{path}/{f}') for f in files]
 
     # Parsing the data
-    parsed_data = [u.parse_data(d, n_rows=n_samples) for d in data]
+    parsed_data = [s.parse_data(d, n_rows=n_samples) for d in data]
 
     # Concatenating the data into a feature vector
-    concat_data = u.concat_data(parsed_data)
+    concat_data = s.concat_data(parsed_data)
 
     # Saving data back as a numpy array
-    u.save_data(concat_data, output_path=f'{path}/features.npy')
+    s.save_data(concat_data, output_path=f'{path}/features.npy')

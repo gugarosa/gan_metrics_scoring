@@ -62,8 +62,29 @@ def save_data(concat_data, output_path=''):
 
     Args:
         concat_data (np.array): Concatenated numpy array.
+        output_path (str): Path to save the numpy array.
 
     """
 
     # Saves the data to a numpy array
     np.save(output_path, concat_data)
+
+
+def load_data(input_path='', normalize=False):
+    """Loads already-saved numpy array.
+
+    Args:
+        input_path (str): Path to load the numpy array.
+        normalize (bool): Whether data should be normalized or not.
+
+    """
+
+    # Loads the already-saved numpy array
+    array = np.load(input_path)
+
+    # Check if it is supposed to be normnalized
+    if normalize:
+        # Normalizes the data
+        array = array / array.max(axis=0)
+
+    return array
