@@ -1,5 +1,6 @@
 import argparse
 
+import utils.math as m
 import utils.stream as s
 
 
@@ -24,6 +25,9 @@ def get_arguments():
     parser.add_argument(
         '-n_samples', help='Maximum number of samples to load', type=int, default=960)
 
+    parser.add_argument(
+        '-outlier', help='Whether outliers should be capped or not', type=bool, default=True)
+
     return parser.parse_args()
 
 
@@ -35,6 +39,7 @@ if __name__ == "__main__":
     path = args.path
     files = args.files
     n_samples = args.n_samples
+    outlier = args.outlier
 
     # Loading the pre-defined input files
     data = [s.load_txt(f'{path}/{f}') for f in files]
@@ -44,6 +49,8 @@ if __name__ == "__main__":
 
     # Concatenating the data into a feature vector
     concat_data = s.concat_data(parsed_data)
+
+    print(m.remove_outliers(concat_data[:, 1], 1.5).max())
 
     # Saving data back as a numpy array
     s.save_data(concat_data, output_path=f'{path}/features.npy')

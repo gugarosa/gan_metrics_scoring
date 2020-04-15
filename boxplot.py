@@ -20,7 +20,7 @@ def get_arguments():
         'input', help='Path to the saved numpy array', type=str)
 
     parser.add_argument(
-        '-normalize', help='Whether data should be normalized or not after loadinf', type=bool, default=False)
+        '-normalize', help='Whether data should be normalized or not after loading', type=bool, default=False)
 
     return parser.parse_args()
 
