@@ -55,3 +55,15 @@ def concat_data(parsed_data):
     concat_data = np.transpose(concat_data, [1, 0])
 
     return concat_data
+
+
+def save_data(concat_data, output_path=''):
+    """Saves concatenated data into a numpy array.
+
+    Args:
+        concat_data (np.array): Concatenated numpy array.
+
+    """
+
+    # Saves the data to a numpy array
+    np.save(output_path, concat_data)
