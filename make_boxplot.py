@@ -2,7 +2,8 @@ import argparse
 
 import matplotlib.pyplot as plt
 
-import utils.stream as s
+import utils.loader as l
+
 
 def get_arguments():
     """Gets arguments from the command line.
@@ -14,15 +15,13 @@ def get_arguments():
 
     # Creates the ArgumentParser
     parser = argparse.ArgumentParser(
-        usage='Loads a pre-saved numpy array and creates its histogram.')
+        usage='Loads a .npy file and creates its boxplot.')
 
     parser.add_argument(
         'input', help='Path to the saved numpy array', type=str)
 
-    parser.add_argument(
-        '-normalize', help='Whether data should be normalized or not after loading', type=bool, default=False)
-
     return parser.parse_args()
+
 
 if __name__ == "__main__":
     # Gathers the input arguments
@@ -30,10 +29,9 @@ if __name__ == "__main__":
 
     # Gathering variables from arguments
     input_array = args.input
-    normalize = args.normalize
 
-    # Loads the array
-    features = s.load_data(input_array, normalize=normalize)
+    # Loads the .npy file
+    features = l.load_npy(input_array)
 
     # Gathers the number of features
     n_features = features.shape[1]
@@ -46,11 +44,11 @@ if __name__ == "__main__":
         # Defines the subplot
         plt.subplot(1, n_features, i+1)
 
-        # Setting up the title
-        plt.title(f'x[{i}]')
+        # Creating the boxplot
+        plt.boxplot(features[:, i], notch=True)
 
-        # Creating the histogram
-        plt.hist(features[:, i])
+        # Setting up the ticks
+        plt.xticks([1], [f'x[{i}]'])
 
     # Displaying the plot
     plt.show()
