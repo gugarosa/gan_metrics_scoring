@@ -54,9 +54,5 @@ if __name__ == "__main__":
     # Creating a feature array from the list of feature arrays
     feature_array = d.feature_vector(feature_arrays, normalize, outlier)
 
-    print(feature_array.shape)
-
-    # print(m.remove_outliers(concat_data[:, 1], 1.5).max())
-
-    # Saving data back as a numpy array
-    # s.save_data(concat_data, output_path=f'{path}/features.npy')
+    # Saving feature array as a .npy file
+    l.save_npy(feature_array, f'{path}/features.npy')

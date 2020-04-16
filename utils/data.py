@@ -36,6 +36,8 @@ def feature_vector(arrays, use_normalization=True, use_capped_outliers=True):
 
     """
 
+    print('Creating feature vector ...')
+
     # Concatenates the arrays into a single array
     vector = np.stack(arrays)
 
@@ -47,9 +49,12 @@ def feature_vector(arrays, use_normalization=True, use_capped_outliers=True):
         # Normalizes the array
         vector = vector / vector.max(axis=0)
 
-    # # Checks the capped outliers boolean
-    # if use_capped_outliers:
-    #     # Caps the array outliers
-    #     vector = m.cap_outliers(vector)
+    # Checks the capped outliers boolean
+    if use_capped_outliers:
+        # Caps the array outliers
+        vector = m.cap_outliers(vector)
+
+    print(
+        f'Shape: {vector.shape} | Normalized: {use_normalization} | Capped Outliers: {use_capped_outliers}')
 
     return vector
