@@ -50,7 +50,7 @@ if __name__ == "__main__":
     # Scoring data with classifier
     print(f'Accuracy: {clf.score(x_test, y_test)}')
 
-    #
+    # Defining a prediction sample
     sample = [[0.6, 0.1, 0.9]]
 
     # Predicting new data
