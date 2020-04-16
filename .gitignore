@@ -1,3 +1,6 @@
+# Numpy files
+**/*.npy
+
 # MacOS trash files
 **/*.DS_Store
 
