@@ -1,7 +1,7 @@
 import argparse
 
-import utils.math as m
-import utils.stream as s
+import utils.data as d
+import utils.loader as l
 
 
 def get_arguments():
@@ -26,6 +26,9 @@ def get_arguments():
         '-n_samples', help='Maximum number of samples to load', type=int, default=960)
 
     parser.add_argument(
+        '-normalize', help='Whether data should be normalized or not', type=bool, default=True)
+
+    parser.add_argument(
         '-outlier', help='Whether outliers should be capped or not', type=bool, default=True)
 
     return parser.parse_args()
@@ -39,18 +42,21 @@ if __name__ == "__main__":
     path = args.path
     files = args.files
     n_samples = args.n_samples
+    normalize = args.normalize
     outlier = args.outlier
 
     # Loading the pre-defined input files
-    data = [s.load_txt(f'{path}/{f}') for f in files]
+    arrays = [l.load_txt(f'{path}/{f}') for f in files]
 
-    # Parsing the data
-    parsed_data = [s.parse_data(d, n_rows=n_samples) for d in data]
+    # Extracting the feature column from arrays with desired number of samples
+    feature_arrays = [d.extract_feature(a, n_samples) for a in arrays]
 
-    # Concatenating the data into a feature vector
-    concat_data = s.concat_data(parsed_data)
+    # Creating a feature array from the list of feature arrays
+    feature_array = d.feature_vector(feature_arrays, normalize, outlier)
 
-    print(m.remove_outliers(concat_data[:, 1], 1.5).max())
+    print(feature_array.shape)
+
+    # print(m.remove_outliers(concat_data[:, 1], 1.5).max())
 
     # Saving data back as a numpy array
-    s.save_data(concat_data, output_path=f'{path}/features.npy')
+    # s.save_data(concat_data, output_path=f'{path}/features.npy')

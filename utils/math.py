@@ -1,6 +1,6 @@
 import numpy as np
 
-def remove_outliers(x, outlierConstant):
+def cap_outliers(x, outlierConstant=1.5):
     a = np.array(x)
     upper_quartile = np.percentile(a, 75)
     lower_quartile = np.percentile(a, 25)
