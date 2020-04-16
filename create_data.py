@@ -55,4 +55,4 @@ if __name__ == "__main__":
     feature_array = d.feature_vector(feature_arrays, normalize, outlier)
 
     # Saving feature array as a .npy file
-    l.save_npy(feature_array, f'{path}/features.npy')
+    l.save_npy(feature_array, f'features.npy')

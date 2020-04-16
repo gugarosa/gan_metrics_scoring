@@ -18,7 +18,7 @@ def get_arguments():
         usage='Loads a .npy file and creates its boxplot.')
 
     parser.add_argument(
-        'input', help='Path to the saved numpy array', type=str)
+        'input', help='Path to the .npy file', type=str)
 
     return parser.parse_args()
 

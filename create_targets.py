@@ -2,7 +2,7 @@ import argparse
 
 import numpy as np
 
-import utils.stream as s
+import utils.loader as l
 
 
 def get_arguments():
@@ -15,16 +15,13 @@ def get_arguments():
 
     # Creates the ArgumentParser
     parser = argparse.ArgumentParser(
-        usage='Digitizes array into intervals in order to create their target.')
+        usage='Digitizes a numpy array into intervals in order to create targets.')
 
     parser.add_argument(
-        'input', help='Path to the saved numpy array', type=str)
+        'input', help='Path to the .npy file', type=str)
 
     parser.add_argument(
         '-n_bins', help='Number of intervals to digitize', type=int, default=5)
-
-    parser.add_argument(
-        '-normalize', help='Whether data should be normalized or not after loading', type=bool, default=False)
 
     return parser.parse_args()
 
@@ -35,30 +32,38 @@ if __name__ == "__main__":
     # Gathering variables from arguments
     input_array = args.input
     n_bins = args.n_bins
-    normalize = args.normalize
 
     # Loads the array
-    features = s.load_data(input_array, normalize=normalize)
+    features = l.load_npy(input_array)
 
     # Gathering minimum and maximum feature values
     min_features = features.min(axis=0)
     max_features = features.max(axis=0)
+    
+    # Pre-allocating targets array
+    y = np.zeros((features.shape[0], features.shape[1]), dtype=np.int)
+
+    print('Creating targets ...')
 
     # For every possible feature
     for i, (min_f, max_f) in enumerate(zip(min_features, max_features)):
         # Creating equally-spaced intervals
-        bins = np.linspace(min_f, max_f, n_bins + 1)
-
-        print(bins)
+        bins = np.linspace(min_f, max_f, n_bins+1)
 
         # If iteration corresponds to MSE's metric
         if i == 1:
             # Digitizing the features array with flipped intervals
-            y = np.digitize(features[:, i], np.flip(bins))
+            y[:, i] = np.digitize(features[:, i], np.flip(bins), right=True)
 
         # If not
         else:
             # Digitizing the features array
-            y = np.digitize(features[:, i], bins)
+            y[:, i] = np.digitize(features[:, i], bins)
 
-        print(y)
+    # Gathering most voted `y` along the features
+    targets = np.asarray([(np.argmax(np.bincount(y[i, :]))) for i in range(features.shape[0])])
+
+    print(f'Labels, Counts: {np.unique(targets, return_counts=True)}')
+
+    # Saving targets array as a .npy file
+    l.save_npy(targets, f'targets.npy')

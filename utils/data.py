@@ -44,15 +44,15 @@ def feature_vector(arrays, use_normalization=True, use_capped_outliers=True):
     # Transposes its dimensions to (n_samples, n_features)
     vector = np.transpose(vector, [1, 0])
 
-    # Check the normalization boolean
-    if use_normalization:
-        # Normalizes the array
-        vector = vector / vector.max(axis=0)
-
     # Checks the capped outliers boolean
     if use_capped_outliers:
         # Caps the array outliers
         vector = m.cap_outliers(vector)
+
+    # Check the normalization boolean
+    if use_normalization:
+        # Normalizes the array
+        vector = vector / vector.max(axis=0)
 
     print(
         f'Shape: {vector.shape} | Normalized: {use_normalization} | Capped Outliers: {use_capped_outliers}')
