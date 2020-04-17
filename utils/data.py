@@ -10,6 +10,7 @@ def extract_feature(array, n_samples=1):
     and the second column to be the feature.
 
     Args:
+        array (np.array): Numpy array to be extracted.
         n_samples (int): Maximum number of samples.
 
     Returns:
