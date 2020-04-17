@@ -50,8 +50,8 @@ if __name__ == "__main__":
         # Creating equally-spaced intervals
         bins = np.linspace(min_f, max_f, n_bins+1)
 
-        # If iteration corresponds to MSE's metric
-        if i == 1:
+        # If iteration corresponds to FID or MSE metric
+        if i == 0 or i == 1:
             # Digitizing the features array with flipped intervals
             y[:, i] = np.digitize(features[:, i], np.flip(bins), right=True)
 

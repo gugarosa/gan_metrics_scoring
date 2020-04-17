@@ -42,7 +42,7 @@ if __name__ == "__main__":
     x_train, x_test, y_train, y_test = train_test_split(features, targets, test_size=0.33, random_state=42)
 
     # Instanciating classifier
-    clf = SVC(C=100, kernel='rbf', probability=True)
+    clf = SVC(C=500, kernel='rbf', probability=True)
 
     # Fitting classifier
     clf.fit(x_train, y_train)
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     print(f'Accuracy: {clf.score(x_test, y_test)}')
 
     # Defining a prediction sample
-    sample = [[0.6, 0.1, 0.9]]
+    sample = [[0.9, 0.1, 0.8]]
 
     # Predicting new data
     pred = clf.predict(sample)
