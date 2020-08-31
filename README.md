@@ -1,6 +1,8 @@
-# ?
+# Evaluating Artificial Images Through Score-based Classifications
 
-*This repository holds all the necessary code to run the very-same experiments described in the paper "?".*
+*This repository holds all the necessary code to run the very-same experiments described in the paper "Evaluating Artificial Images Through Score-based Classifications".*
+
+---
 
 ## References
 
@@ -8,6 +10,8 @@ If you use our work to fulfill any of your needs, please cite us:
 
 ```
 ```
+
+---
 
 ## Structure
 
@@ -18,6 +22,8 @@ If you use our work to fulfill any of your needs, please cite us:
     * `data.py`: Methods to aid in extracting desired features from data;
     * `loader.py`: Loads .txt data and saves it in .npy files;
     * `math.py`: Provides mathematical helpers.
+    
+---
 
 ## How-to-Use
 
@@ -90,3 +96,5 @@ Or, if necessary, invoke the scripts with their helpers:
 ```python make_histogram.py -h```
 
 *Note that it will output a helper file in order to assist in choosing the correct arguments for the script.*
+
+---
