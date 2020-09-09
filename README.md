@@ -79,9 +79,13 @@ As an optional procedure, one can also calculate and plot some statistical measu
 python make_boxplot.py input
 ```
 
+or
+
 ```Python
 python make_violinplot.py input
 ```
+
+or
 
 ```Python
 python make_histogram.py input
